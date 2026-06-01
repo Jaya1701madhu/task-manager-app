@@ -10,7 +10,7 @@ function Dashboard() {
   const fetchTasks = async () => {
     const res = await API.get("/tasks", {
       headers: {
-        authorization: token,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -28,7 +28,7 @@ function Dashboard() {
       },
       {
         headers: {
-          authorization: token,
+          Authorization: `Bearer ${token}`,
         },
       },
     );
@@ -43,7 +43,7 @@ function Dashboard() {
       { stage },
       {
         headers: {
-          authorization: token,
+          Authorization: `Bearer ${token}`,
         },
       },
     );
@@ -54,7 +54,7 @@ function Dashboard() {
   const deleteTask = async (id) => {
     await API.delete(`/tasks/${id}`, {
       headers: {
-        authorization: token,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -89,86 +89,48 @@ function Dashboard() {
 
       <hr />
 
-      <div
-        style={{
-          display: "flex",
-          gap: "20px",
-          alignItems: "flex-start",
-        }}
-      >
-        {/* Todo */}
-        <div
-          style={{
-            flex: 1,
-            border: "1px solid gray",
-            padding: "10px",
-          }}
-        >
+      <div style={{ display: "flex", gap: "20px" }}>
+        {/* TODO */}
+        <div style={{ flex: 1, border: "1px solid gray", padding: "10px" }}>
           <h2>Todo</h2>
-
           {tasks
-            .filter((task) => task.stage === "Todo")
+            .filter((t) => t.stage === "Todo")
             .map((task) => (
               <div key={task._id}>
                 <h4>{task.title}</h4>
-
                 <button onClick={() => updateTask(task._id, "In Progress")}>
-                  Move to In Progress
+                  Move
                 </button>
-
                 <button onClick={() => deleteTask(task._id)}>Delete</button>
-
-                <hr />
               </div>
             ))}
         </div>
 
-        {/* In Progress */}
-        <div
-          style={{
-            flex: 1,
-            border: "1px solid gray",
-            padding: "10px",
-          }}
-        >
+        {/* IN PROGRESS */}
+        <div style={{ flex: 1, border: "1px solid gray", padding: "10px" }}>
           <h2>In Progress</h2>
-
           {tasks
-            .filter((task) => task.stage === "In Progress")
+            .filter((t) => t.stage === "In Progress")
             .map((task) => (
               <div key={task._id}>
                 <h4>{task.title}</h4>
-
                 <button onClick={() => updateTask(task._id, "Done")}>
-                  Move to Done
+                  Move
                 </button>
-
                 <button onClick={() => deleteTask(task._id)}>Delete</button>
-
-                <hr />
               </div>
             ))}
         </div>
 
-        {/* Done */}
-        <div
-          style={{
-            flex: 1,
-            border: "1px solid gray",
-            padding: "10px",
-          }}
-        >
+        {/* DONE */}
+        <div style={{ flex: 1, border: "1px solid gray", padding: "10px" }}>
           <h2>Done</h2>
-
           {tasks
-            .filter((task) => task.stage === "Done")
+            .filter((t) => t.stage === "Done")
             .map((task) => (
               <div key={task._id}>
                 <h4>{task.title}</h4>
-
                 <button onClick={() => deleteTask(task._id)}>Delete</button>
-
-                <hr />
               </div>
             ))}
         </div>
